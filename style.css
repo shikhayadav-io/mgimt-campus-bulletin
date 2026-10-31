@@ -1,0 +1,770 @@
+/* ==========================================================================
+   MG INSTITUTE OF MANAGEMENT AND TECHNOLOGY (MGIMT), BANTHRA, LUCKNOW
+   CAMPUS BULLETIN - PURE CSS DESIGN SYSTEM (ZERO JAVASCRIPT)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. GLOBAL VARIABLES & COLOR PALETTE
+   VIVA POINT: Colors ka psychological aur category-wise division yahan define hai.
+   -------------------------------------------------------------------------- */
+:root {
+  /* Board Background & Neutral Surface */
+  --cork-bg: #ede8df;
+  --board-surface: #d8c4a4;
+  --primary-navy: #1e293b;       /* Top Navbar & Serious headings */
+  --text-dark: #1f2937;          /* Body readability text */
+  --text-muted: #64748b;         /* Subtitles & metadata timestamps */
+  --border-subtle: #cbd5e1;
+
+  /* --- CATEGORY-WISE COLOR CODING (NOTICE TYPES) ---
+     1. Urgent / Critical Alerts (Exams, Placement deadlines): Red & Warm Orange
+     2. Student Club & Technical Events (Coding, Robotics, Debate): Cyan, Yellow, Pink
+     3. General Departmental Academics (Syllabus, Project dates): Warm Amber / Gold
+  */
+  --urgent-card-bg: #fff7ed;     /* Soft urgent tinted background */
+  --urgent-badge-bg: #fee2e2;    /* Alert light red */
+  --urgent-badge-text: #b91c1c;  /* Alert bold dark red */
+
+  --club-badge-bg: #e0f2fe;      /* Technical club light blue */
+  --club-badge-text: #0369a1;    /* Technical club deep blue */
+
+  --academic-badge-bg: #fef3c7;  /* Academic circular light yellow */
+  --academic-badge-text: #b45309;/* Academic circular deep amber */
+
+  /* Shadows for Realistic 3D Elevation */
+  --card-shadow: 0 10px 18px -3px rgba(0, 0, 0, 0.12), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+  --card-hover-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.18), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+  /* Typography */
+  --font-main: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-hand: 'Caveat', cursive, sans-serif;
+}
+
+/* --------------------------------------------------------------------------
+   2. GLOBAL RESET & BASE STYLES
+   -------------------------------------------------------------------------- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-main);
+  /* Textured pattern mimicking a physical cork / bulletin board texture */
+  background: var(--cork-bg) url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><g fill="%23d6cebe" fill-opacity="0.35" fill-rule="evenodd"><circle cx="20" cy="20" r="1.5"/></g></svg>');
+  color: var(--text-dark);
+  line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --------------------------------------------------------------------------
+   3. APP HEADER & CAMPUS BRANDING
+   -------------------------------------------------------------------------- */
+.app-header {
+  background-color: var(--primary-navy);
+  color: #ffffff;
+  padding: 1.25rem 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.brand-pin {
+  font-size: 2.2rem;
+  line-height: 1;
+}
+
+.brand h1 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.brand-sub {
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+
+.college-address {
+  font-size: 0.78rem;
+  color: #cbd5e1;
+  display: block;
+  margin-top: 0.2rem;
+}
+
+.live-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 0.4rem 0.85rem;
+  border-radius: 9999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #f1f5f9;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #22c55e; /* Active online green signal */
+}
+
+/* --------------------------------------------------------------------------
+   4. PURE CSS FILTERING ENGINE (RADIO BUTTON HACK)
+   VIVA POINT: Hidden radio buttons + :checked + sibling combinator (~)
+   se bina JavaScript ke category filter hoti hai.
+   -------------------------------------------------------------------------- */
+.board-wrapper {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+  flex-grow: 1;
+}
+
+.filter-controls {
+  margin-bottom: 2rem;
+}
+
+.filter-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-right: 0.75rem;
+  color: #334155;
+}
+
+/* Radio button ke default circle ko hide kar diya */
+input[type="radio"][name="board-filter"] {
+  display: none;
+}
+
+/* Label ko stylish button/pill ka roop diya */
+.filter-btn {
+  display: inline-block;
+  padding: 0.45rem 1rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  background-color: #ffffff;
+  border: 1px solid var(--border-subtle);
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+  background-color: #f1f5f9;
+  color: #0f172a;
+}
+
+/* Active tab style: Jab radio button :checked ho */
+#filter-all:checked ~ label[for="filter-all"],
+#filter-urgent:checked ~ label[for="filter-urgent"],
+#filter-academic:checked ~ label[for="filter-academic"],
+#filter-clubs:checked ~ label[for="filter-clubs"] {
+  background-color: #0284c7;
+  color: #ffffff;
+  border-color: #0284c7;
+  box-shadow: 0 4px 6px -1px rgba(2, 132, 199, 0.3);
+}
+
+/* Pure CSS Filtering: Non-matching categories ko display: none karna */
+#filter-urgent:checked ~ .notice-grid .pin-card:not(.item-urgent) {
+  display: none;
+}
+
+#filter-academic:checked ~ .notice-grid .pin-card:not(.item-academic) {
+  display: none;
+}
+
+#filter-clubs:checked ~ .notice-grid .pin-card:not(.item-clubs) {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
+   5. NOTICE GRID & PHYSICAL PINNED CARD STYLING
+   -------------------------------------------------------------------------- */
+.notice-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+/* Base Card (White Card default) */
+.pin-card {
+  background: #ffffff;
+  border-radius: 4px;
+  padding: 2.25rem 1.6rem 1.5rem 1.6rem;
+  box-shadow: var(--card-shadow);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-bottom: 4px solid rgba(0, 0, 0, 0.08);
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s ease;
+}
+
+/* Card par mouse aane par card seedha (0deg) aur scale-up ho jayega */
+.pin-card:hover {
+  transform: rotate(0deg) scale(1.03) translateY(-4px);
+  box-shadow: var(--card-hover-shadow);
+  z-index: 10;
+}
+
+/* Realistic Board Tilts */
+.rotate-left         { transform: rotate(-1.5deg); }
+.rotate-right        { transform: rotate(1.2deg); }
+.rotate-slight-left  { transform: rotate(-0.8deg); }
+.rotate-slight-right { transform: rotate(0.9deg); }
+
+/* --------------------------------------------------------------------------
+   6. CATEGORY-WISE COLOR VARIATIONS (CARDS & NEWS TYPES)
+   -------------------------------------------------------------------------- */
+
+/* TYPE 1: URGENT / EXAM / PLACEMENT NOTICES
+   Color: Warm Tint (#fff7ed) & Alert Red (#dc2626)
+   Kyun use kiya: High priority notices student ka dhyan turant attract karte hain. */
+.note-orange {
+  background-color: #fff7ed; /* Light Amber/Orange background */
+}
+
+/* TYPE 2: CODING & TECHNICAL CLUB NOTICES
+   Color: Pastel Note Yellow (#fefce8)
+   Kyun use kiya: Classic desk sticky note feel deta hai hackathons aur coding events ke liye. */
+.note-yellow {
+  background-color: #fefce8;
+}
+
+/* TYPE 3: ROBOTICS & WORKSHOP NOTICES
+   Color: Fresh Soft Cyan (#f0fdfa)
+   Kyun use kiya: Modern engineering & hardware labs ke liye clean futuristic shade. */
+.note-cyan {
+  background-color: #f0fdfa;
+}
+
+/* TYPE 4: CULTURAL, LITERARY & DEBATE NOTICES
+   Color: Soft Pastel Pink (#fdf2f8)
+   Kyun use kiya: Extra-curricular aur cultural events ko technical studies se alag dikhane ke liye. */
+.note-pink {
+  background-color: #fdf2f8;
+}
+
+/* --------------------------------------------------------------------------
+   7. PURE CSS 3D PUSHPINS (CRAFTED WITH RADIAL GRADIENTS)
+   Har notice card ke pin ka color card ke urgency level se match karta hai.
+   -------------------------------------------------------------------------- */
+.pushpin {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  margin: -1.2rem auto 0.8rem auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.35);
+  border: 2px solid rgba(255, 255, 255, 0.8);
+}
+
+/* Red Pin: Urgent alerts & semester practical deadlines */
+.red-pin    { background: radial-gradient(circle at 4px 4px, #f87171, #dc2626); }
+
+/* Blue Pin: Coding club & software hackathons */
+.blue-pin   { background: radial-gradient(circle at 4px 4px, #60a5fa, #2563eb); }
+
+/* Gold Pin: Departmental academic notifications & mini-project reviews */
+.gold-pin   { background: radial-gradient(circle at 4px 4px, #fde047, #ca8a04); }
+
+/* Green Pin: Robotics society & IoT workshops */
+.green-pin  { background: radial-gradient(circle at 4px 4px, #4ade80, #16a34a); }
+
+/* Purple Pin: Literary & debate society competitions */
+.purple-pin { background: radial-gradient(circle at 4px 4px, #c084fc, #9333ea); }
+
+/* --------------------------------------------------------------------------
+   8. CARD METADATA, BADGES & TYPOGRAPHY
+   -------------------------------------------------------------------------- */
+.card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.card-meta time {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* Category Badges (Pills) */
+.tag {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+}
+
+/* Urgent Tag: Warning Red */
+.tag-urgent   { background-color: var(--urgent-badge-bg); color: var(--urgent-badge-text); }
+
+/* Club Tag: Oceanic Blue */
+.tag-club     { background-color: var(--club-badge-bg); color: var(--club-badge-text); }
+
+/* Academic Tag: Amber Gold */
+.tag-academic { background-color: var(--academic-badge-bg); color: var(--academic-badge-text); }
+
+.card-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--primary-navy);
+  margin-bottom: 0.6rem;
+  line-height: 1.35;
+}
+
+.card-body {
+  font-size: 0.9rem;
+  color: #4b5563;
+  margin-bottom: 1.25rem;
+  flex-grow: 1;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px dashed var(--border-subtle);
+  padding-top: 0.75rem;
+  font-size: 0.8rem;
+}
+
+/* Handwritten font for signatures / notice authors */
+.author {
+  font-weight: 600;
+  color: #64748b;
+  font-family: var(--font-hand);
+  font-size: 1.15rem;
+}
+
+.view-details {
+  color: #0284c7;
+  text-decoration: none;
+  font-weight: 700;
+  transition: transform 0.15s ease;
+}
+
+.view-details:hover {
+  text-decoration: underline;
+}
+
+/* --------------------------------------------------------------------------
+   9. COLLAPSIBLE SUBMISSION DRAWER (HTML5 <details> & <summary>)
+   VIVA POINT: Native accordions without JS scripts
+   -------------------------------------------------------------------------- */
+.submission-section {
+  margin-top: 3.5rem;
+  margin-bottom: 2rem;
+}
+
+.drawer-accordion {
+  background-color: #ffffff;
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.drawer-header {
+  padding: 1.25rem 1.75rem;
+  font-weight: 700;
+  color: var(--primary-navy);
+  cursor: pointer;
+  background-color: #f8fafc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+}
+
+.drawer-header::-webkit-details-marker {
+  display: none;
+}
+
+.toggle-icon {
+  font-size: 1.4rem;
+  line-height: 1;
+  color: #64748b;
+  transition: transform 0.2s ease;
+}
+
+/* Accordion khulne par plus (+) icon 45 degree rotate hokar cross (x) ban jata hai */
+.drawer-accordion[open] .toggle-icon {
+  transform: rotate(45deg);
+}
+
+.drawer-body {
+  padding: 1.75rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.pure-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 0.65rem 0.85rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #0284c7;
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+}
+
+.submit-btn {
+  background-color: var(--primary-navy);
+  color: #ffffff;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.submit-btn:hover {
+  background-color: #0f172a;
+}
+
+/* --------------------------------------------------------------------------
+   10. PURE CSS POPUP MODAL (VIA :target PSEUDO-CLASS)
+   VIVA POINT: id="modal-exam" par URL hash aate hi display: flex trigger hota hai.
+   -------------------------------------------------------------------------- */
+.modal-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+/* URL hash trigger */
+.modal-backdrop:target {
+  display: flex;
+}
+
+.modal-box {
+  background-color: #ffffff;
+  border-radius: 8px;
+  max-width: 540px;
+  width: 100%;
+  padding: 2rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.modal-close {
+  float: right;
+  font-size: 1.6rem;
+  text-decoration: none;
+  color: #64748b;
+  line-height: 1;
+}
+
+.modal-box h2 {
+  font-size: 1.35rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.75rem;
+  color: var(--primary-navy);
+}
+
+.modal-divider {
+  border: none;
+  border-top: 1px solid #e2e8f0;
+  margin-bottom: 1rem;
+}
+
+.modal-box p {
+  font-size: 0.9rem;
+  color: #475569;
+  margin-bottom: 0.65rem;
+}
+
+.modal-footer-btn {
+  margin-top: 1.5rem;
+  text-align: right;
+}
+
+.btn-primary {
+  display: inline-block;
+  background-color: #0284c7;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 0.55rem 1.2rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+/* --------------------------------------------------------------------------
+   11. FOOTER SECTION
+   -------------------------------------------------------------------------- */
+.app-footer {
+  background-color: #ffffff;
+  border-top: 1px solid #e2e8f0;
+  text-align: center;
+  padding: 1.5rem 1rem;
+  font-size: 0.85rem;
+  color: #64748b;
+  margin-top: auto;
+}
+
+/* --------------------------------------------------------------------------
+   12. MOBILE & TABLET RESPONSIVENESS (MEDIA QUERIES)
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .header-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.85rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  /* Mobile screens par tilt hata kar direct vertical stack rakha hai taaki reading easy ho */
+  .pin-card {
+    transform: none !important;
+  }
+}
+/* --------------------------------------------------------------------------
+   LOGIN PAGE STYLING (login.html)
+   -------------------------------------------------------------------------- */
+.login-body {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 1.5rem;
+}
+
+.login-card {
+  background: #ffffff;
+  width: 100%;
+  max-width: 440px;
+  border-radius: 14px;
+  padding: 2.25rem 2rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+  text-align: left;
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 1.75rem;
+}
+
+/* Header container layout */
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* Brand section: Logo aur Text ko ek line me horizontally lane ke liye */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* College Logo ko chhota aur perfectly circular fit karne ke liye */
+./* Logo wrapper ko perfectly center karne ke liye */
+.logo-wrapper {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100% !important;
+  margin: 0 0 1rem 0 !important;
+  text-align: center !important;
+}
+
+/* College Logo strictly small, round and centered */
+.image-img {
+  width: 80px !important;
+  height: 80px !important;
+  max-width: 80px !important;
+  max-height: 80px !important;
+  object-fit: contain !important;
+  border-radius: 50% !important;
+  background: #ffffff !important;
+  padding: 4px !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12) !important;
+  display: block !important;
+  margin: 0 auto !important;
+}
+
+/* College Name Headings Styling */
+.brand h1 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: #ffffff;
+}
+
+.brand-sub {
+  font-size: 0.82rem;
+  color: #94a3b8;
+  margin-top: 0.2rem;
+}
+
+.college-address {
+  font-size: 0.75rem;
+  color: #cbd5e1;
+  display: block;
+  margin-top: 0.15rem;
+}
+
+/* Right side badges & logout button */
+.header-badges {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-shrink: 0;
+}
+.login-header h2 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #1e293b;
+  line-height: 1.3;
+}
+
+.college-sub {
+  font-size: 0.82rem;
+  color: #64748b;
+  margin-top: 0.25rem;
+  font-weight: 500;
+}
+
+.portal-badge {
+  display: inline-block;
+  margin-top: 0.6rem;
+  background-color: #e0f2fe;
+  color: #0369a1;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+.login-submit-btn {
+  background-color: #0284c7;
+  color: #ffffff;
+  padding: 0.85rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.login-submit-btn:hover {
+  background-color: #0369a1;
+  transform: translateY(-1px);
+}
+
+.login-footer-back {
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+.login-footer-back a {
+  font-size: 0.82rem;
+  color: #64748b;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.login-footer-back a:hover {
+  color: #0284c7;
+  text-decoration: underline;
+}
+.logout-btn {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.4rem 0.85rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  margin-left: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.logout-btn:hover {
+  background-color: #ef4444; /* Hover karne par alert red look */
+  border-color: #ef4444;
+}

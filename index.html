@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MGIMT Campus Bulletin | Digital Notice & Club Hub</title>
+
+  <!-- External Stylesheet: Saari styling style.css file se connect ho rahi hai -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Google Fonts: Inter (headings/text ke liye) aur Caveat (handwritten note look ke liye) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <<!-- ==========================================================================
+       SECTION 1: TOP HEADER & NAVIGATION
+       ========================================================================== -->
+  <header class="app-header" style="background-color: #1e293b; padding: 1rem 1.5rem; color: #ffffff;">
+    <div class="header-container" style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
+      
+      <!-- College Logo & Brand Details -->
+      <div class="brand" style="display: flex; align-items: center; gap: 1rem;">
+        <img 
+          src="image.png" 
+          alt="MGIMT Logo" 
+          style="width: 55px !important; height: 55px !important; min-width: 55px !important; max-width: 55px !important; max-height: 55px !important; object-fit: contain; border-radius: 50%; background: #ffffff; padding: 3px; box-shadow: 0 2px 8px rgba(0,0,0,0.25); display: block; flex-shrink: 0;" 
+        />
+        
+        <div>
+          <h1 style="font-size: 1.25rem; font-weight: 800; line-height: 1.2; margin: 0; color: #ffffff;">MG Institute of Management and Technology</h1>
+          <p class="brand-sub" style="font-size: 0.82rem; color: #94a3b8; margin: 0.2rem 0 0 0;">Department of Computer Science &amp; Engineering | Affiliated to AKTU</p>
+          <span class="college-address" style="font-size: 0.75rem; color: #cbd5e1; display: block; margin-top: 0.15rem;">📍 Banthra, Lucknow, Uttar Pradesh</span>
+        </div>
+      </div>
+
+      <!-- Right Side Badges & Logout Button -->
+      <div class="header-badges" style="display: flex; align-items: center; gap: 0.75rem; flex-shrink: 0;">
+        <span class="live-pill" style="display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.78rem; background: rgba(255,255,255,0.08); padding: 0.35rem 0.75rem; border-radius: 9999px; border: 1px solid rgba(255,255,255,0.15); color: #e2e8f0;">
+          <span class="dot" style="width: 7px; height: 7px; background-color: #22c55e; border-radius: 50%;"></span> Session 2026-27 Active Board
+        </span>
+        <a href="login.html" class="logout-btn" style="background-color: rgba(255, 255, 255, 0.15); color: #ffffff; text-decoration: none; font-size: 0.82rem; font-weight: 600; padding: 0.4rem 0.85rem; border-radius: 9999px; border: 1px solid rgba(255, 255, 255, 0.3); transition: all 0.2s ease;">🔐 Logout / Login</a>
+      </div>
+
+    </div>
+  </header>
+
+
+  <!-- ==========================================================================
+       SECTION 2: MAIN BULLETIN BOARD (FILTER + NOTICES GRID)
+       VIVA POINT: CSS Radio Button Trick se category filtering
+       ========================================================================== -->
+  <main class="board-wrapper">
+
+    <!-- Category Filter Controls -->
+    <section class="filter-controls">
+      <span class="filter-title">Filter Notices:</span>
+
+      <!-- 1. All Notices Filter (Default Checked) -->
+      <input type="radio" name="board-filter" id="filter-all" checked />
+      <label for="filter-all" class="filter-btn">All Pinned (6)</label>
+
+      <!-- 2. Urgent Filter -->
+      <input type="radio" name="board-filter" id="filter-urgent" />
+      <label for="filter-urgent" class="filter-btn">Urgent</label>
+
+      <!-- 3. Academic Filter -->
+      <input type="radio" name="board-filter" id="filter-academic" />
+      <label for="filter-academic" class="filter-btn">Academic</label>
+
+      <!-- 4. Clubs Filter -->
+      <input type="radio" name="board-filter" id="filter-clubs" />
+      <label for="filter-clubs" class="filter-btn">Club Events</label>
+
+
+      <!-- ======================================================================
+           NOTICES GRID: Sticky notes with college specific details
+           ====================================================================== -->
+      <div class="notice-grid">
+
+        <!-- Card 1: Urgent Exam Alert -->
+        <article class="pin-card item-urgent rotate-left">
+          <div class="pushpin red-pin"></div>
+          <header class="card-meta">
+            <span class="tag tag-urgent">Urgent Alert</span>
+            <time datetime="2026-10-27">Oct 27, 2026</time>
+          </header>
+          <h2 class="card-title">AKTU Practical & Lab Exam Schedule</h2>
+          <p class="card-body">Practical exams commence from <strong>November 03, 2026</strong> at MGIMT Banthra campus labs. Submit verified lab records with faculty signatures by Friday 4:00 PM.</p>
+          <footer class="card-footer">
+            <span class="author">Office of COE - MGIMT</span>
+            <a href="#modal-exam" class="view-details">Read Circular &rarr;</a>
+          </footer>
+        </article>
+
+        <!-- Card 2: Coding Club Hackathon -->
+        <article class="pin-card item-clubs rotate-right note-yellow">
+          <div class="pushpin blue-pin"></div>
+          <header class="card-meta">
+            <span class="tag tag-club">Coding Club</span>
+            <time datetime="2026-10-26">Oct 26, 2026</time>
+          </header>
+          <h2 class="card-title">HackSprint 2026 Registrations</h2>
+          <p class="card-body">MGIMT internal 24-hr hackathon. Themes: EdTech, Smart Agro & AI Automation. Certificate of excellence and cash awards for winners.</p>
+          <footer class="card-footer">
+            <span class="author">CSE Club Coordinator</span>
+            <a href="#modal-exam" class="view-details">View Details &rarr;</a>
+          </footer>
+        </article>
+
+        <!-- Card 3: Academic Mini Project Notice -->
+        <article class="pin-card item-academic rotate-slight-left">
+          <div class="pushpin gold-pin"></div>
+          <header class="card-meta">
+            <span class="tag tag-academic">Academics</span>
+            <time datetime="2026-10-25">Oct 25, 2026</time>
+          </header>
+          <h2 class="card-title">B.Tech Mini Project Evaluation</h2>
+          <p class="card-body">All CSE batches must submit final HTML/CSS source code along with 6-slide PPT report before <strong>October 29, 2026</strong> to the lab coordinator.</p>
+          <footer class="card-footer">
+            <span class="author">Dept. Project Cell</span>
+            <a href="#modal-exam" class="view-details">Guidelines &rarr;</a>
+          </footer>
+        </article>
+
+        <!-- Card 4: Robotics & IoT Workshop -->
+        <article class="pin-card item-clubs rotate-slight-right note-cyan">
+          <div class="pushpin green-pin"></div>
+          <header class="card-meta">
+            <span class="tag tag-club">Robotics Society</span>
+            <time datetime="2026-10-24">Oct 24, 2026</time>
+          </header>
+          <h2 class="card-title">IoT & Sensor Interfacing Workshop</h2>
+          <p class="card-body">Hands-on microcontroller coding and telemetry session in Hardware Lab 2. Free registration for all MGIMT engineering students.</p>
+          <footer class="card-footer">
+            <span class="author">Faculty Incharge: Lab 2</span>
+            <a href="#modal-exam" class="view-details">Check Syllabus &rarr;</a>
+          </footer>
+        </article>
+
+        <!-- Card 5: Placement Notice -->
+        <article class="pin-card item-urgent rotate-left note-orange">
+          <div class="pushpin red-pin"></div>
+          <header class="card-meta">
+            <span class="tag tag-urgent">Placement Cell</span>
+            <time datetime="2026-10-23">Oct 23, 2026</time>
+          </header>
+          <h2 class="card-title">Campus Drive: Novac Solutions</h2>
+          <p class="card-body">On-campus drive for Software Trainee roles (CTC: 6.5 LPA). Eligible: B.Tech CSE students with 70%+ aggregate and no standing backlogs.</p>
+          <footer class="card-footer">
+            <span class="author">MGIMT Corporate Relations</span>
+            <a href="#modal-exam" class="view-details">Apply Link &rarr;</a>
+          </footer>
+        </article>
+
+        <!-- Card 6: Cultural & Debate Society -->
+        <article class="pin-card item-clubs rotate-right note-pink">
+          <div class="pushpin purple-pin"></div>
+          <header class="card-meta">
+            <span class="tag tag-club">Literary Club</span>
+            <time datetime="2026-10-22">Oct 22, 2026</time>
+          </header>
+          <h2 class="card-title">Annual Inter-Branch Debate</h2>
+          <p class="card-body">Topic: <em>'Impact of AI Systems on Core Engineering Employment'</em>. Register your 2-member team at Seminar Hall Block A.</p>
+          <footer class="card-footer">
+            <span class="author">Cultural Committee</span>
+            <a href="#modal-exam" class="view-details">Register &rarr;</a>
+          </footer>
+        </article>
+
+      </div>
+    </section>
+
+
+    <!-- ==========================================================================
+       SECTION 3: COLLAPSIBLE SUBMISSION DRAWER
+       ========================================================================== -->
+    <section class="submission-section">
+      <details class="drawer-accordion">
+        <summary class="drawer-header">
+          <span>📢 Class Representative / Club Lead? Request a Pinned Circular</span>
+          <span class="toggle-icon">+</span>
+        </summary>
+        <div class="drawer-body">
+          <form class="pure-form" action="#" method="get" onsubmit="return false;">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="notice-title">Notice Title</label>
+                <input type="text" id="notice-title" placeholder="e.g. AI & ML Guest Lecture Session" required />
+              </div>
+              <div class="form-group">
+                <label for="notice-cat">Category</label>
+                <select id="notice-cat" required>
+                  <option value="">Select Category</option>
+                  <option value="urgent">Urgent Administrative</option>
+                  <option value="academic">Departmental Academic</option>
+                  <option value="club">Student Club Announcement</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="notice-desc">Circular Description (Brief)</label>
+              <textarea id="notice-desc" rows="3" placeholder="Provide event venue, timing, and eligibility criteria..." required></textarea>
+            </div>
+            <div class="form-action">
+              <button type="submit" class="submit-btn">Send for HOD Approval</button>
+            </div>
+          </form>
+        </div>
+      </details>
+    </section>
+
+  </main>
+
+
+  <!-- ==========================================================================
+       SECTION 4: PURE CSS POPUP MODAL
+       ========================================================================== -->
+  <div id="modal-exam" class="modal-backdrop">
+    <div class="modal-box">
+      <a href="#" class="modal-close" title="Close Window">&times;</a>
+      
+      <span class="tag tag-urgent">Circular Ref: MGIMT/COE/2026/104</span>
+      <h2>Official Examination Guidelines (Session 2026-27)</h2>
+      <hr class="modal-divider" />
+      
+      <p><strong>Institution:</strong> MG Institute of Management
